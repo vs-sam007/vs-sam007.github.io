@@ -1,0 +1,814 @@
+/* --- Global Styles & Variables --- */
+:root {
+  /* NEW: Refined color palette for a more ethereal digital feel */
+  --bg-color: #0d0d1a;         /* Even darker, deep space blue */
+  --secondary-bg: #1a1a38;   /* Dark blue-purple for cards/navbar */
+  --primary-color: #8a63f7;    /* Brighter, vibrant violet */
+  --primary-glow: rgba(138, 99, 247, 0.6); /* Enhanced glow effect */
+  --text-color: #e0e0e0;       /* Soft light grey */
+  --border-color: #38385e;
+  --accent-color: #63f7d1; /* A new teal accent for highlights */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  overflow-x: hidden; /* Prevent horizontal scroll from background elements */
+  position: relative; /* For absolute positioning of background shapes */
+}
+
+/* NEW: Ethereal background shapes */
+body::before, body::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.2;
+  filter: blur(80px); /* Soft blur */
+  z-index: -2; /* Below Matrix background */
+}
+
+body::before {
+  width: 500px;
+  height: 500px;
+  background-color: var(--primary-color);
+  top: -100px;
+  left: -100px;
+  animation: bgPulse 10s infinite alternate ease-in-out;
+}
+
+body::after {
+  width: 600px;
+  height: 600px;
+  background-color: var(--accent-color);
+  bottom: -150px;
+  right: -150px;
+  animation: bgPulse 12s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes bgPulse {
+  0% { transform: scale(1); opacity: 0.2; }
+  100% { transform: scale(1.05); opacity: 0.25; }
+}
+
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  filter: brightness(1.3);
+  text-shadow: 0 0 8px var(--primary-glow); /* NEW: Text glow on hover */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+section {
+  padding: 6rem 5%;
+  min-height: 80vh;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.8s ease-out forwards; /* NEW: Slower, smoother fade-in */
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+#about { animation-delay: 0.15s; } /* NEW: Increased delay for subtle stagger */
+#projects { animation-delay: 0.3s; }
+#contact { animation-delay: 0.45s; }
+
+
+h1, h2, h3 {
+  font-weight: 700; /* NEW: Bolder headings */
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(0,0,0,0.3); /* Subtle shadow for depth */
+}
+
+h1 { font-size: 3.5rem; line-height: 1.2; } /* NEW: Slightly larger H1 */
+h2 { 
+  font-size: 2.8rem; /* NEW: Larger H2 */
+  text-align: center; 
+  margin-bottom: 3.5rem; /* NEW: More space below H2 */
+  background: -webkit-linear-gradient(45deg, var(--primary-color), var(--accent-color)); /* NEW: Gradient includes accent */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px var(--primary-glow); /* NEW: Section title glow */
+}
+h3 { font-size: 1.6rem; }
+
+p {
+  margin-bottom: 1.2rem; /* NEW: More line spacing */
+  max-width: 70ch; /* NEW: Wider paragraph */
+  opacity: 0.9;
+}
+
+.highlight {
+  background: -webkit-linear-gradient(45deg, var(--primary-color), var(--accent-color), #c2adff); /* NEW: More vibrant highlight */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800; /* NEW: Extra bold highlight */
+  text-shadow: 0 0 12px var(--primary-glow); /* Highlight glow */
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 2rem; /* NEW: Even more padding */
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.05rem; /* NEW: Slightly larger font */
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); /* NEW: Smoother bounce transition */
+  border: 2px solid transparent;
+  
+  background-image: linear-gradient(45deg, var(--primary-color), var(--accent-color)); /* NEW: Gradient with accent */
+  color: var(--bg-color);
+  box-shadow: 0 5px 20px var(--primary-glow); /* NEW: Stronger button glow */
+  position: relative;
+  overflow: hidden; /* For digital scan effect */
+}
+
+/* NEW: Digital scan line effect on button hover */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-5px) scale(1.02); /* More pronounced lift */
+  box-shadow: 0 8px 25px var(--primary-glow), 0 0 30px var(--accent-color); /* Combined glow */
+  filter: brightness(1.1);
+  color: var(--bg-color);
+}
+
+.btn-secondary {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--text-color);
+  padding: 0.6rem 1.4rem; /* NEW: More padding */
+  border-radius: 50px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  box-shadow: inset 0 0 5px rgba(255,255,255,0.1); /* Subtle inner shadow */
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--bg-color);
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px var(--primary-glow);
+}
+
+
+/* --- Header & Navbar --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  
+  background-color: rgba(26, 26, 56, 0.85); /* Slightly darker transparent */
+  backdrop-filter: blur(15px); /* NEW: More blur for better glass effect */
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 15px rgba(0,0,0,0.4); /* Navbar shadow */
+}
+
+.nav-logo {
+  font-size: 1.6rem; /* NEW: Slightly larger logo */
+  font-weight: 800; /* NEW: Bolder logo */
+  color: var(--text-color);
+  text-shadow: 0 0 10px var(--primary-glow); /* Logo glow */
+}
+.nav-logo:hover {
+  color: var(--primary-color);
+  transform: scale(1.03);
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+}
+
+.nav-item {
+  margin-left: 2.2rem; /* NEW: More spacing */
+}
+
+.nav-link {
+  font-size: 1.05rem; /* NEW: Slightly larger nav links */
+  font-weight: 500;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  position: relative;
+  padding-bottom: 8px; /* NEW: More space for animated underline */
+}
+
+/* NEW: Animated digital underline hover effect */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%; /* Start from center */
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-color); /* Use accent color for underline */
+  box-shadow: 0 0 10px var(--accent-color);
+  transition: all 0.3s ease;
+  transform: translateX(-50%); /* Keep centered */
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  width: 100%;
+}
+.nav-link:hover, .nav-link.active {
+  color: var(--accent-color); /* NEW: Nav link text color changes to accent */
+  text-shadow: 0 0 8px var(--accent-color);
+}
+
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 28px; /* NEW: Slightly larger bars */
+  height: 3px;
+  margin: 6px auto; /* NEW: More margin */
+  transition: all 0.3s ease-in-out;
+  background-color: var(--text-color);
+  border-radius: 2px;
+}
+
+/* --- Home Section --- */
+.home-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3rem; /* NEW: More gap */
+  padding-top: 9rem; /* Adjust padding to be below fixed header */
+  min-height: 100vh;
+}
+
+.home-content {
+  flex: 1 1 55%;
+  animation: fadeIn 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.home-content h3 {
+  color: var(--text-color);
+  opacity: 0.9;
+  font-size: 1.6rem; /* NEW: Larger subtitle */
+}
+
+.home-links {
+  margin-top: 2.5rem; /* NEW: More margin */
+  display: flex;
+  align-items: center;
+  gap: 1.8rem; /* NEW: More gap */
+}
+
+.social-link {
+  font-size: 2rem; /* NEW: Larger icons */
+  color: var(--text-color);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.social-link:hover {
+  color: var(--primary-color);
+  transform: scale(1.3) translateY(-3px); /* More pronounced pop */
+  text-shadow: 0 0 15px var(--primary-glow); /* Social link glow */
+}
+
+.home-img {
+  flex: 1 1 40%;
+  text-align: center;
+  animation: fadeIn 0.8s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+.home-img img {
+  width: 85%; /* Slightly larger image */
+  max-width: 450px; /* Max size */
+  border-radius: 50%;
+  border: 5px solid transparent;
+  background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box,
+              linear-gradient(45deg, var(--primary-color), var(--accent-color)) border-box; /* Gradient border with accent */
+  animation: subtleFloat 4s ease-in-out infinite, pulseGlow 3s infinite alternate; /* NEW: Added pulse glow */
+  box-shadow: 0 0 40px var(--primary-glow);
+}
+
+@keyframes subtleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); } /* More movement */
+}
+
+/* NEW: Image pulse glow animation */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 40px var(--primary-glow); }
+  50% { box-shadow: 0 0 60px var(--primary-glow), 0 0 20px var(--accent-color); }
+}
+
+
+/* --- About Section --- */
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem; /* NEW: More space */
+  max-width: 1100px; /* NEW: Wider content */
+  margin: 0 auto;
+  justify-content: center; /* Center content when wrapped */
+}
+
+.about-text {
+  flex: 1 1 55%; /* Adjusted flex basis */
+  min-width: 300px; /* Ensure minimum width */
+}
+.about-text p {
+  font-size: 1.1rem; /* NEW: Larger text */
+  opacity: 0.9;
+}
+
+.about-skills {
+  flex: 1 1 40%; /* Adjusted flex basis */
+  min-width: 250px; /* Ensure minimum width */
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem; /* Added padding */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.about-skills h3 {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.skill {
+  display: inline-block;
+  background-color: #2a2a4a; /* Slightly different background for tags */
+  color: var(--accent-color); /* Skills in accent color */
+  padding: 0.7rem 1.3rem; /* More padding */
+  margin: 0.4rem; /* More margin */
+  border-radius: 25px; /* More rounded */
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 1px solid #4a4a6e; /* Slightly different border */
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.skill:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  transform: translateY(-3px) scale(1.08); /* More lift and scale */
+  box-shadow: 0 0 20px rgba(99, 247, 209, 0.7); /* Accent color glow on hover */
+}
+
+/* --- Projects Section --- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* NEW: Larger cards */
+  gap: 2.5rem; /* NEW: More gap */
+}
+
+.project-card {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 15px; /* NEW: Even more rounded */
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease; /* Smoother transition */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Stronger initial shadow */
+  position: relative;
+}
+
+/* NEW: Animated border on project cards */
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color), var(--primary-color));
+  z-index: -1;
+  border-radius: 17px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+  animation: rotateBorder 3s linear infinite; /* Animates the gradient border */
+}
+
+@keyframes rotateBorder {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.project-card:hover {
+  transform: translateY(-12px) scale(1.02); /* More lift and slight scale */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 30px var(--primary-glow); /* Stronger glow on hover */
+}
+
+.project-card img {
+  width: 100%;
+  height: 240px; /* NEW: Even taller image */
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.project-card:hover img {
+  transform: scale(1.08); /* More zoom effect */
+}
+
+.project-card h3,
+.project-card p,
+.project-card .project-links {
+  padding: 0 1.8rem; /* NEW: More padding */
+}
+
+.project-card h3 {
+  margin-top: 1.8rem; /* More margin */
+  color: var(--primary-color);
+  text-shadow: 0 0 8px var(--primary-glow);
+}
+.project-card p {
+  flex-grow: 1; 
+  opacity: 0.9;
+  font-size: 1rem; /* NEW: Standard text size for descriptions */
+}
+
+.project-links {
+  padding-bottom: 1.8rem;
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 1.2rem;
+}
+
+/* --- Contact Section --- */
+.contact-section {
+  text-align: center;
+  min-height: 50vh;
+}
+
+.contact-section p {
+  max-width: 700px; /* NEW: Wider text block */
+  margin: 1.5rem auto 3rem; /* More space */
+  font-size: 1.15rem; /* NEW: Larger text */
+  opacity: 0.95;
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  padding: 3.5rem 5%; /* More padding */
+  background-color: var(--secondary-bg);
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -2px 15px rgba(0,0,0,0.4);
+}
+
+.footer-socials {
+  margin-bottom: 1.8rem; /* More space */
+}
+
+.footer-socials a {
+  font-size: 2rem; /* Larger icons */
+  margin: 0 0.8rem;
+  color: var(--text-color);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.footer-socials a:hover {
+  color: var(--accent-color); /* NEW: Footer icons glow with accent */
+  transform: scale(1.3) translateY(-3px);
+  text-shadow: 0 0 15px var(--accent-color);
+}
+
+.footer p {
+  font-size: 0.95rem; /* Slightly larger text */
+  margin: 0;
+  opacity: 0.85;
+}
+
+.footer .fa-heart {
+  color: var(--primary-color);
+  animation: pulse 1.5s infinite; /* NEW: Pulsing heart icon */
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+
+/* --- Responsive (Mobile) Styles --- */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg); /* Adjusted for larger bars */
+  }
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg); /* Adjusted for larger bars */
+  }
+
+  .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 73px; /* Adjusted for navbar height */
+    flex-direction: column;
+    background-color: var(--bg-color);
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding-top: 2rem;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-item {
+    margin: 2.5rem 0;
+  }
+  .nav-link {
+    font-size: 1.3rem;
+  }
+  
+  .home-section {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding-top: 7rem;
+    min-height: auto; /* Allow height to adjust on mobile */
+  }
+
+  .home-content h1 {
+    font-size: 2.8rem;
+  }
+  .home-content h3 {
+    font-size: 1.4rem;
+  }
+  .home-links {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+  }
+  
+  .home-content p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .home-img img {
+    width: 65%;
+    max-width: 280px;
+    margin-top: 2rem;
+  }
+  
+  h2 { font-size: 2.2rem; }
+  
+  .about-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 2.5rem;
+  }
+  .about-skills {
+    padding: 1.5rem;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
+  .project-card img {
+    height: 200px;
+  }
+
+  .contact-section p {
+    font-size: 1rem;
+  }
+  .footer-socials a {
+    font-size: 1.7rem;
+  }
+}
+
+
+/* --- Matrix Background Style (Already in style.css, but ensure z-index is correct) --- */
+#matrixBackground {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Puts it behind all other content but above body::before/after */
+  background-color: var(--bg-color); 
+}
+
+/* Ensure content is positioned correctly above the canvas */
+body > *:not(#matrixBackground) {
+  position: relative;
+  z-index: 1; /* Make sure all other content is above the canvas */
+}
+/* --- NEW: Proficiency Section Styles --- */
+.proficiency-section {
+  padding-top: 4rem; /* Adjust padding to separate from About Me */
+  padding-bottom: 6rem;
+}
+
+.proficiency-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.proficiency-card {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  padding: 2.5rem 1.5rem; /* Increased padding */
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  display: flex; /* Make it a flex container */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+/* Animated border for proficiency cards */
+.proficiency-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color), var(--primary-color));
+  z-index: -1;
+  border-radius: 17px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.proficiency-card:hover::before {
+  opacity: 1;
+  animation: rotateBorder 3s linear infinite;
+}
+
+.proficiency-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 30px var(--primary-glow);
+}
+
+.proficiency-icon {
+  width: 120px; /* NEW: Icon size */
+  height: 120px;
+  border-radius: 50%;
+  background-color: #2a2a4a; /* Darker background for the icon circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 1.5rem; /* Center and add margin below */
+  border: 3px solid var(--primary-color); /* Primary color border */
+  box-shadow: 0 0 20px var(--primary-glow);
+  transition: all 0.3s ease;
+  overflow: hidden; /* Hide parts of image outside circle */
+}
+
+.proficiency-card:hover .proficiency-icon {
+  transform: scale(1.1) rotate(5deg); /* Slight rotation and scale on hover */
+  border-color: var(--accent-color); /* Change border color on hover */
+  box-shadow: 0 0 30px var(--accent-color), 0 0 15px var(--primary-glow); /* Combined glow */
+}
+
+.proficiency-icon img {
+  width: 70%; /* Image fills 70% of the circle */
+  height: 70%;
+  object-fit: contain; /* Ensure image fits */
+  border-radius: 50%; /* Make image round inside the icon circle */
+  filter: drop-shadow(0 0 8px rgba(0,0,0,0.5)); /* Subtle shadow on image */
+}
+
+
+.proficiency-card h3 {
+  font-size: 1.7rem; /* Larger heading */
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.skill-list {
+  list-style: none; /* Remove default bullet points */
+  padding: 0;
+  margin-top: 1rem;
+  text-align: left; /* Align list items left */
+  width: 100%; /* Take full width of card */
+  flex-grow: 1; /* Allows card to maintain consistent height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center list items vertically if there's extra space */
+}
+
+.skill-list li {
+  font-size: 1.05rem;
+  color: var(--text-color);
+  margin-bottom: 0.8rem;
+  display: flex; /* Align icon and text */
+  align-items: center;
+  gap: 0.8rem; /* Space between icon and text */
+  opacity: 0.9;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.skill-list li:hover {
+  color: var(--accent-color);
+  transform: translateX(8px); /* Slide effect on hover */
+  text-shadow: 0 0 5px var(--accent-color);
+}
+
+.skill-icon {
+  font-size: 1.2rem;
+  color: var(--accent-color); /* Icons use accent color */
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+/* Ensure fade-in animation works for the new section */
+#proficiency {
+    animation-delay: 0.25s; /* Adjust delay as needed */
+}
+
+/* Responsive adjustments for proficiency section */
+@media (max-width: 768px) {
+  .proficiency-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 2rem;
+  }
+  .proficiency-card {
+    padding: 2rem 1rem;
+  }
+  .proficiency-icon {
+    width: 100px;
+    height: 100px;
+  }
+  .proficiency-card h3 {
+    font-size: 1.5rem;
+  }
+  .skill-list li {
+    font-size: 1rem;
+  }
+}
